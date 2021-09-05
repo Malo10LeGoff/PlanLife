@@ -4,111 +4,19 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Task from './components/Task';
 import { TabView, SceneMap } from 'react-native-tab-view';
+import firebase from 'firebase'
+import firestore from '@react-native-firebase/firestore';
+import { doc, getDoc, setDoc, collection } from "@react-native-firebase/firestore";
 
-
-function WorkTab({ navigation }) {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Work tasks!</Text>
-      <Button
-        title="Go to work tasks"
-        onPress={() => navigation.navigate('Work')}
-      />
-    </View>
-  );
+const firebaseConfig = {
+  apiKey: process.env.apiKey,
+  authDomain: process.env.authDomain,
+  projectId: process.env.projectId,
+  storageBucket: process.env.storageBucket,
+  messagingSenderId: process.env.messagingSenderId,
+  appId: process.env.appId,
+  measurementId: process.env.measurementId
 }
-
-function HobbyTab({ navigation }) {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Hobby Tasks</Text>
-      <Button
-        title="Go to hobbies"
-        onPress={() => navigation.navigate('Hobbies')}
-      />
-    </View>
-  );
-}
-
-function HealthTab({ navigation }) {
-  return (
-    <View style={styles.container}>
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1
-        }}
-        keyboardShouldPersistTaps='handled'
-      >
-        <View style={styles.tasksWrapper}>
-          <Text style={styles.sectionTitle}>Today's tasks</Text>
-          <View style={styles.items}>
-            {
-              taskItems.map((item, index) => {
-                return (
-                  <TouchableOpacity key={index} onPress={() => completeTask(index)}>
-                    <Task text={item} />
-                  </TouchableOpacity>
-                )
-              })
-            }
-          </View>
-        </View>
-      </ScrollView>
-    </View>
-  );
-}
-
-const FirstRoute = () => (
-  <View style={styles.container}>
-
-    <ScrollView
-      contentContainerStyle={{
-        flexGrow: 1
-      }}
-      keyboardShouldPersistTaps='handled'
-    >
-      <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>Today's tasks</Text>
-        <View style={styles.items}>
-          {
-            taskItems.map((item, index) => {
-              return (
-                <TouchableOpacity key={index} onPress={() => completeTask(index)}>
-                  <Task text={item} />
-                </TouchableOpacity>
-              )
-            })
-          }
-        </View>
-      </View>
-    </ScrollView>
-  </View>
-);
-
-const SecondRoute = () => (
-  <View style={styles.tasksWrapper}>
-    <Text style={styles.sectionTitle}>Today's tasks</Text>
-    <View style={styles.items}>
-      {
-        taskItems.map((item, index) => {
-          return (
-            <TouchableOpacity key={index} onPress={() => completeTask(index)}>
-              <Task text={item} />
-            </TouchableOpacity>
-          )
-        })
-      }
-    </View>
-  </View>
-);
-
-const renderScene = SceneMap({
-  first: FirstRoute,
-  second: SecondRoute,
-});
-
-
-const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [task, setTask] = useState();
@@ -118,9 +26,28 @@ export default function App() {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'first', title: 'First' },
-    { key: 'second', title: 'Second' },
+    { key: 'first', title: 'Work' },
+    { key: 'second', title: 'Hobbies' },
+    { key: 'third', title: 'Health' },
   ]);
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  } else {
+    firebase.app(); // if already initialized, use that one
+  }
+
+  console.log("Firebase connection initialized !");
+
+  const docRef = firebase.firestore().doc("Work/example_tasklist");
+  const docSnap = docRef.get();
+
+  if (docRef.empty) {
+    console.log("Document data:", docSnap.data());
+  } else {
+    // doc.data() will be undefined in this case
+    console.log("No such document!");
+  }
 
   const handleAddTask = () => {
     Keyboard.dismiss();
@@ -134,35 +61,15 @@ export default function App() {
     setTaskItems(itemsCopy)
   }
 
-  return (
+  const FirstRoute = () => (
     <View style={styles.container}>
-      {/* Added this scroll view to enable scrolling when list gets longer than the page */}
-      {/*
+
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1
         }}
         keyboardShouldPersistTaps='handled'
       >
-      */}
-
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
-      />
-      {/*         <View style={styles.tasksWrapper}>
-          <NavigationContainer>
-            <Tab.Navigator>
-              <Tab.Screen name="Work" component={WorkTab} />
-              <Tab.Screen name="Hobbies" component={HobbyTab} />
-              <Tab.Screen name="Health" component={HealthTab} />
-            </Tab.Navigator>
-          </NavigationContainer>
-        </View>
-
-        {/* Today's Tasks 
         <View style={styles.tasksWrapper}>
           <Text style={styles.sectionTitle}>Today's tasks</Text>
           <View style={styles.items}>
@@ -177,24 +84,111 @@ export default function App() {
             }
           </View>
         </View>
-
       </ScrollView>
-
-      {/* Write a task *
-      {/* Uses a keyboard avoiding view which ensures the keyboard does not cover the items on screen 
       <KeyboardAvoidingView
-      behavior={Platform.OS === "ios"?"padding": "height"}
-      style={styles.writeTaskWrapper}
+        // behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.writeTaskWrapper}
       >
-      <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
-      <TouchableOpacity onPress={() => handleAddTask()}>
-      <View style={styles.addWrapper}>
-      <Text style={styles.addText}>+</Text>
-      </View>
-      </TouchableOpacity>
+        <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
+        <TouchableOpacity onPress={() => handleAddTask()}>
+          <View style={styles.addWrapper}>
+            <Text style={styles.addText}>+</Text>
+          </View>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
-      */}
+    </View>
+  );
 
+  const SecondRoute = () => (
+    <View style={styles.container}>
+
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1
+        }}
+        keyboardShouldPersistTaps='handled'
+      >
+        <View style={styles.tasksWrapper}>
+          <Text style={styles.sectionTitle}>Today's tasks</Text>
+          <View style={styles.items}>
+            {
+              taskItems.map((item, index) => {
+                return (
+                  <TouchableOpacity key={index} onPress={() => completeTask(index)}>
+                    <Task text={item} />
+                  </TouchableOpacity>
+                )
+              })
+            }
+          </View>
+        </View>
+      </ScrollView>
+      <KeyboardAvoidingView
+        //  behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.writeTaskWrapper}
+      >
+        <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
+        <TouchableOpacity onPress={() => handleAddTask()}>
+          <View style={styles.addWrapper}>
+            <Text style={styles.addText}>+</Text>
+          </View>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+    </View>
+  );
+
+  const ThirdRoute = () => (
+    <View style={styles.container}>
+
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1
+        }}
+        keyboardShouldPersistTaps='handled'
+      >
+        <View style={styles.tasksWrapper}>
+          <Text style={styles.sectionTitle}>Today's tasks</Text>
+          <View style={styles.items}>
+            {
+              taskItems.map((item, index) => {
+                return (
+                  <TouchableOpacity key={index} onPress={() => completeTask(index)}>
+                    <Task text={item} />
+                  </TouchableOpacity>
+                )
+              })
+            }
+          </View>
+        </View>
+      </ScrollView>
+      <KeyboardAvoidingView
+        //  behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.writeTaskWrapper}
+      >
+        <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
+        <TouchableOpacity onPress={() => handleAddTask()}>
+          <View style={styles.addWrapper}>
+            <Text style={styles.addText}>+</Text>
+          </View>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+    </View>
+  );
+
+  const renderScene = SceneMap({
+    first: FirstRoute,
+    second: SecondRoute,
+    third: ThirdRoute,
+  });
+
+  return (
+    <View style={styles.container}>
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: layout.width }}
+      />
     </View>
   );
 }
