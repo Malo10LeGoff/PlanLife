@@ -1,10 +1,10 @@
 ### TODO 
 - Separate storages tasks
-- Make it work on a phone
-- Store them on Firebase
-- Create an Icon for the app
-- Factorize the route component insidue the App.js
+- Implement CRUD functions on Firebase
+- Segment it based on the userID
 - Implement test + CI/CD
+- Install ESLint
+- Create class for a task : OOP implementation ?
 
 Run the app in local on your phone :
 - Set up your phone in the developer mode

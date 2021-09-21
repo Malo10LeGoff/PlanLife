@@ -26,11 +26,14 @@ export default async function App() {
     { key: 'third', title: 'Health' },
   ]);
 
+  CreateTask();
+
   const FirstRoute = () => (
     <View style={styles.container}>
       <Tab />
     </View>
   );
+
 
   const SecondRoute = () => (
     <View style={styles.container}>
