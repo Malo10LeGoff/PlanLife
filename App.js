@@ -1,19 +1,8 @@
-import React, { useState } from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView, Button, useWindowDimensions } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import Tab from './components/Tab';
 import { TabView, SceneMap } from 'react-native-tab-view';
-import { GetTasks, CreateTask, DeleteTask } from './firebase_functions/utility_functions';
-//import { doc, getDoc, setDoc, collection } from "@react-native-firebase/firestore";
-
-const firebaseConfig = {
-  apiKey: process.env.apiKey,
-  authDomain: process.env.authDomain,
-  projectId: process.env.projectId,
-  storageBucket: process.env.storageBucket,
-  messagingSenderId: process.env.messagingSenderId,
-  appId: process.env.appId,
-  measurementId: process.env.measurementId
-}
+import { GetTasks_Health } from './firebase_functions/utility_functions';
 
 export default async function App() {
 
@@ -26,7 +15,9 @@ export default async function App() {
     { key: 'third', title: 'Health' },
   ]);
 
-  CreateTask();
+  const task_health = GetTasks_Health();
+
+  console.log(task_health);
 
   const FirstRoute = () => (
     <View style={styles.container}>

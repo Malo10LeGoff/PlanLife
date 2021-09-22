@@ -4,6 +4,7 @@
 - Segment it based on the userID
 - Implement test + CI/CD
 - Install ESLint
+- Pre-commit installation
 - Create class for a task : OOP implementation ?
 
 Run the app in local on your phone :
@@ -11,3 +12,7 @@ Run the app in local on your phone :
 - Enable USB debugging
 - Plug your phone on your PC
 - run expo start
+
+Run ESLinter to check problems (unused imports, ...) :
+- npm install eslint --save-dev
+- npx eslint file_you_want_to_chek.js
