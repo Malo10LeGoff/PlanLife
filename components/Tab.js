@@ -1,24 +1,34 @@
 import React from 'react';
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView, Button, useWindowDimensions } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
 import Task from './Task';
 import { useState } from 'react';
+import { GetTasks_Health, GetTasks_Work, GetTasks_Leisures, CreateTask_Health, DeleteTask_Health } from '../firebase_functions/utility_functions';
+
 
 
 export default function Tab() {
     const [task, setTask] = useState();
-    const [taskItems, setTaskItems] = useState([]);
+    const init_value_health = GetTasks_Health();
+    const [taskItems, setTaskItems] = useState(init_value_health);
 
+
+    // Put a props here taking the tasks from firebase and the function that creates a document in Firebase
     const handleAddTask = () => {
         Keyboard.dismiss();
         setTaskItems([...taskItems, task])
+        CreateTask_Health(task);
         setTask(null);
     }
 
+    // Add the delete function from firebase here
     const completeTask = (index) => {
         let itemsCopy = [...taskItems];
         itemsCopy.splice(index, 1);
+        DeleteTask_Health(index)
         setTaskItems(itemsCopy)
     }
+
+    console.log(GetTasks_Health());
 
     return (
         <View style={styles.container}>
@@ -39,7 +49,8 @@ export default function Tab() {
                                         <Task text={item} />
                                     </TouchableOpacity>
                                 )
-                            })
+                            }
+                            )
                         }
                     </View>
                 </View>

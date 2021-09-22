@@ -3,7 +3,6 @@
 - Implement CRUD functions on Firebase
 - Segment it based on the userID
 - Implement test + CI/CD
-- Install ESLint
 - Pre-commit installation
 - Create class for a task : OOP implementation ?
 

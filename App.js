@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet, View, useWindowDimensions } from 'react-native';
+import { StyleSheet, View, useWindowDimensions, Text } from 'react-native';
 import Tab from './components/Tab';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { GetTasks_Health } from './firebase_functions/utility_functions';
 
-export default async function App() {
+export default function App() {
 
   const layout = useWindowDimensions();
 
@@ -15,9 +15,6 @@ export default async function App() {
     { key: 'third', title: 'Health' },
   ]);
 
-  const task_health = GetTasks_Health();
-
-  console.log(task_health);
 
   const FirstRoute = () => (
     <View style={styles.container}>
