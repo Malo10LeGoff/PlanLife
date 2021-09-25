@@ -3,6 +3,7 @@ import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpaci
 import Task from './Task';
 import { useState } from 'react';
 import { GetTasks_Work, CreateTask_Work, DeleteTask_Work } from '../firebase_functions/utility_functions';
+import { out_promise_userid } from '../App';
 
 
 function get_doc_id(task_name, mapping_task_doc_id) {
@@ -20,8 +21,12 @@ export default function Tab_Work(props) {
     const task_array = [];
     const mapping_task_doc_id = [];
     if (props.text == "Work") {
-        console.log(GetTasks_Work(props.uid['0']));
-        var tasks_list = GetTasks_Work(props.uid['0']).get().then((querySnapshot) => {
+        console.log(GetTasks_Work(out_promise_userid['0']));
+        console.log(out_promise_userid['0']);
+        var tasks_list = GetTasks_Work(out_promise_userid['0']).get().then((querySnapshot) => {
+            if (querySnapshot.empty) {
+                console.log('no documents found');
+            }
             const tempDoc = querySnapshot.docs.map((doc) => {
                 const text_taskoune = { ...doc.data() };
                 const myJSON = JSON.stringify(text_taskoune);
@@ -45,7 +50,7 @@ export default function Tab_Work(props) {
     const handleAddTask = () => {
         Keyboard.dismiss();
         setTaskItems([...taskItems, task])
-        CreateTask_Work(task);
+        CreateTask_Work(task, out_promise_userid['0']);
         setTask(null);
     }
 
@@ -54,7 +59,7 @@ export default function Tab_Work(props) {
         let itemsCopy = [...taskItems];
         itemsCopy.splice(index, 1);
         const doc_id = get_doc_id(item, mapping_task_doc_id)
-        DeleteTask_Work(doc_id)
+        DeleteTask_Work(doc_id, out_promise_userid['0'])
         setTaskItems(itemsCopy)
     }
 

@@ -50,7 +50,7 @@ export default function Tab_Health(props) {
     const handleAddTask = () => {
         Keyboard.dismiss();
         setTaskItems([...taskItems, task])
-        CreateTask_Health(task);
+        CreateTask_Health(task, out_promise_userid['0']);
         setTask(null);
     }
 
@@ -59,7 +59,7 @@ export default function Tab_Health(props) {
         let itemsCopy = [...taskItems];
         itemsCopy.splice(index, 1);
         const doc_id = get_doc_id(item, mapping_task_doc_id)
-        DeleteTask_Health(doc_id)
+        DeleteTask_Health(doc_id, out_promise_userid['0'])
         setTaskItems(itemsCopy)
     }
 

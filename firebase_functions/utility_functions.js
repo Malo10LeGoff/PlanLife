@@ -24,7 +24,7 @@ export function GetTasks_Health(user_id) {
 
 export async function CreateTask_Health(name_task_to_create, user_id) {
     firebase.firestore()
-        .collection('Health')
+        .collection('users').doc(user_id).collection("Health")
         .add({
             text: name_task_to_create,
         })
@@ -35,7 +35,7 @@ export async function CreateTask_Health(name_task_to_create, user_id) {
 
 export async function CreateTask_Work(name_task_to_create, user_id) {
     firebase.firestore()
-        .collection('Work')
+        .collection('users').doc(user_id).collection("Work")
         .add({
             text: name_task_to_create,
         })
@@ -46,7 +46,7 @@ export async function CreateTask_Work(name_task_to_create, user_id) {
 
 export async function CreateTask_Leisures(name_task_to_create, user_id) {
     firebase.firestore()
-        .collection('Leisures')
+        .collection('users').doc(user_id).collection("Leisures")
         .add({
             text: name_task_to_create,
         })
@@ -58,7 +58,9 @@ export async function CreateTask_Leisures(name_task_to_create, user_id) {
 export async function DeleteTask_Health(id_task_to_delete, user_id) {
     // I must have the name of the document to be deleted
     firebase.firestore()
-        .collection('Health')
+        .collection('users')
+        .doc(user_id).
+        collection("Health")
         .doc(id_task_to_delete)
         .delete()
         .then(() => {
@@ -69,7 +71,9 @@ export async function DeleteTask_Health(id_task_to_delete, user_id) {
 export async function DeleteTask_Work(id_task_to_delete, user_id) {
 
     firebase.firestore()
-        .collection('Work')
+        .collection('users')
+        .doc(user_id)
+        .collection("Health")
         .doc(id_task_to_delete)
         .delete()
         .then(() => {
@@ -80,7 +84,9 @@ export async function DeleteTask_Work(id_task_to_delete, user_id) {
 export async function DeleteTask_Leisures(id_task_to_delete, user_id) {
 
     firebase.firestore()
-        .collection('Leisures')
+        .collection('users')
+        .doc(user_id)
+        .collection("Health")
         .doc(id_task_to_delete)
         .delete()
         .then(() => {

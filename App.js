@@ -16,6 +16,8 @@ const user_id = signIn("malolegoff@gmail.com", "balbababa").then((result) => {
 
 export { out_promise_userid };
 
+console.log(out_promise_userid['0']);
+
 export default function App() {
 
   //registration("malolegoff@gmail.com", "balbababa", "LG", "Malo");

@@ -1,6 +1,5 @@
 ### TODO 
-- Segment it based on the userID : password should be at least 6 chars long
-- Implement the UI for user registration 
+- Implement the UI for user registration :  password should be at least 6 chars long, put this kind of condition on the UI
 - Implement test + CI/CD
 - Pre-commit installation
 - Create class for a task : OOP implementation ?
