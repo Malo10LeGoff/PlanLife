@@ -1,26 +1,21 @@
 import firebase from '../config/firebaseDB';
 
 export async function GetTasks_Work() {
-    const list_tasks_work = (await firebase.firestore().collection('Work').get());
-    return Array.from(list_tasks_work.docs.map(doc => doc.data().text));
+    const tasks = firebase.firestore().collection('Work')
+    return tasks
 }
 
 
 export async function GetTasks_Leisures() {
-    const list_tasks_leisures = (await firebase.firestore().collection('Leisures').get());
-    return Array.from(list_tasks_leisures.docs.map(doc => doc.data().text));
+    const tasks = firebase.firestore().collection('Leisures')
+    return tasks
 }
 
-export async function GetTasks_Health() {
-    firebase.firestore()
-        .collection('Health')
-        .get().docs
-        .map(doc => doc.data().text)
-        .then(function (result) {
-            console.log(result);
-            return result;
-        });
+export function GetTasks_Health() {
+    const tasks = firebase.firestore().collection('Health')
+    return tasks
 }
+
 
 export async function CreateTask_Health(name_task_to_create) {
     firebase.firestore()

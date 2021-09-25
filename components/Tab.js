@@ -6,11 +6,56 @@ import { GetTasks_Health, GetTasks_Work, GetTasks_Leisures, CreateTask_Health, D
 
 
 
-export default function Tab() {
+export default function Tab(props) {
     const [task, setTask] = useState();
-    const init_value_health = GetTasks_Health();
-    const [taskItems, setTaskItems] = useState(init_value_health);
+    const task_array = [];
+    if (props.text == "Health") {
+        var tasks_list = GetTasks_Health().get().then((querySnapshot) => {
+            const tempDoc = querySnapshot.docs.map((doc) => {
+                const text_taskoune = { ...doc.data() };
+                const myJSON = JSON.stringify(text_taskoune);
+                if (!task_array.includes(myJSON.substring(9, myJSON.length - 2).replace('\\"', "").replace('\"', "").replace('\\', ""))) {
+                    task_array.push(myJSON.substring(9, myJSON.length - 2).replace('\\"', "").replace('\"', "").replace('\\', ""))
+                }
+                return { id: doc.id, ...doc.data() }
+            })
+            return tempDoc;
+        }
+        );
+    }
 
+    if (props.text == "Work") {
+        var tasks_list = GetTasks_Work().get().then((querySnapshot) => {
+            const tempDoc = querySnapshot.docs.map((doc) => {
+                const text_taskoune = { ...doc.data() };
+                const myJSON = JSON.stringify(text_taskoune);
+                if (!task_array.includes(myJSON.substring(9, myJSON.length - 2).replace('\\"', "").replace('\"', "").replace('\\', ""))) {
+                    task_array.push(myJSON.substring(9, myJSON.length - 2).replace('\\"', "").replace('\"', "").replace('\\', ""))
+                }
+                return { id: doc.id, ...doc.data() }
+            })
+            return tempDoc;
+        }
+        );
+    }
+
+    if (props.text == "Leisures") {
+        var tasks_list = GetTasks_Leisures().get().then((querySnapshot) => {
+            const tempDoc = querySnapshot.docs.map((doc) => {
+                const text_taskoune = { ...doc.data() };
+                const myJSON = JSON.stringify(text_taskoune);
+                if (!task_array.includes(myJSON.substring(9, myJSON.length - 2).replace('\\"', "").replace('\"', "").replace('\\', ""))) {
+                    task_array.push(myJSON.substring(9, myJSON.length - 2).replace('\\"', "").replace('\"', "").replace('\\', ""))
+                }
+                return { id: doc.id, ...doc.data() }
+            })
+            return tempDoc;
+        }
+        );
+    }
+
+    const [taskItems, setTaskItems] = useState(task_array);
+    console.log(taskItems);
 
     // Put a props here taking the tasks from firebase and the function that creates a document in Firebase
     const handleAddTask = () => {
@@ -27,8 +72,6 @@ export default function Tab() {
         DeleteTask_Health(index)
         setTaskItems(itemsCopy)
     }
-
-    console.log(GetTasks_Health());
 
     return (
         <View style={styles.container}>

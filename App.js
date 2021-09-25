@@ -18,20 +18,20 @@ export default function App() {
 
   const FirstRoute = () => (
     <View style={styles.container}>
-      <Tab />
+      <Tab text={"Work"} />
     </View>
   );
 
 
   const SecondRoute = () => (
     <View style={styles.container}>
-      <Tab />
+      <Tab text={"Leisures"} />
     </View>
   );
 
   const ThirdRoute = () => (
     <View style={styles.container}>
-      <Tab />
+      <Tab text={"Health"} />
     </View>
   );
 
