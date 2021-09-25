@@ -2,50 +2,33 @@ import React from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
 import Task from './Task';
 import { useState } from 'react';
-import { GetTasks_Health, GetTasks_Work, GetTasks_Leisures, CreateTask_Health, DeleteTask_Health } from '../firebase_functions/utility_functions';
+import { GetTasks_Leisures, CreateTask_Leisures, DeleteTask_Leisures } from '../firebase_functions/utility_functions';
 
 
+function get_doc_id(task_name, mapping_task_doc_id) {
+    var arrayLength = mapping_task_doc_id.length;
+    for (var i = 0; i < arrayLength; i++) {
+        console.log(mapping_task_doc_id[i]);
+        if (mapping_task_doc_id[i].task_name_parsed == task_name) {
+            return mapping_task_doc_id[i].id;
+        }
+    }
+}
 
-export default function Tab(props) {
+export default function Tab_Leisures(props) {
     const [task, setTask] = useState();
     const task_array = [];
-    if (props.text == "Health") {
-        var tasks_list = GetTasks_Health().get().then((querySnapshot) => {
-            const tempDoc = querySnapshot.docs.map((doc) => {
-                const text_taskoune = { ...doc.data() };
-                const myJSON = JSON.stringify(text_taskoune);
-                if (!task_array.includes(myJSON.substring(9, myJSON.length - 2).replace('\\"', "").replace('\"', "").replace('\\', ""))) {
-                    task_array.push(myJSON.substring(9, myJSON.length - 2).replace('\\"', "").replace('\"', "").replace('\\', ""))
-                }
-                return { id: doc.id, ...doc.data() }
-            })
-            return tempDoc;
-        }
-        );
-    }
-
-    if (props.text == "Work") {
-        var tasks_list = GetTasks_Work().get().then((querySnapshot) => {
-            const tempDoc = querySnapshot.docs.map((doc) => {
-                const text_taskoune = { ...doc.data() };
-                const myJSON = JSON.stringify(text_taskoune);
-                if (!task_array.includes(myJSON.substring(9, myJSON.length - 2).replace('\\"', "").replace('\"', "").replace('\\', ""))) {
-                    task_array.push(myJSON.substring(9, myJSON.length - 2).replace('\\"', "").replace('\"', "").replace('\\', ""))
-                }
-                return { id: doc.id, ...doc.data() }
-            })
-            return tempDoc;
-        }
-        );
-    }
-
+    const mapping_task_doc_id = [];
     if (props.text == "Leisures") {
+        console.log(GetTasks_Leisures());
         var tasks_list = GetTasks_Leisures().get().then((querySnapshot) => {
             const tempDoc = querySnapshot.docs.map((doc) => {
                 const text_taskoune = { ...doc.data() };
                 const myJSON = JSON.stringify(text_taskoune);
                 if (!task_array.includes(myJSON.substring(9, myJSON.length - 2).replace('\\"', "").replace('\"', "").replace('\\', ""))) {
-                    task_array.push(myJSON.substring(9, myJSON.length - 2).replace('\\"', "").replace('\"', "").replace('\\', ""))
+                    const task_name_parsed = myJSON.substring(9, myJSON.length - 2).replace('\\"', "").replace('\"', "").replace('\\', "");
+                    task_array.push(task_name_parsed)
+                    mapping_task_doc_id.push({ id: doc.id, task_name_parsed })
                 }
                 return { id: doc.id, ...doc.data() }
             })
@@ -56,20 +39,22 @@ export default function Tab(props) {
 
     const [taskItems, setTaskItems] = useState(task_array);
     console.log(taskItems);
+    console.log(mapping_task_doc_id);
 
     // Put a props here taking the tasks from firebase and the function that creates a document in Firebase
     const handleAddTask = () => {
         Keyboard.dismiss();
         setTaskItems([...taskItems, task])
-        CreateTask_Health(task);
+        CreateTask_Leisures(task);
         setTask(null);
     }
 
     // Add the delete function from firebase here
-    const completeTask = (index) => {
+    const completeTask = (index, item) => {
         let itemsCopy = [...taskItems];
         itemsCopy.splice(index, 1);
-        DeleteTask_Health(index)
+        const doc_id = get_doc_id(item, mapping_task_doc_id)
+        DeleteTask_Leisures(doc_id)
         setTaskItems(itemsCopy)
     }
 
@@ -88,7 +73,7 @@ export default function Tab(props) {
                         {
                             taskItems.map((item, index) => {
                                 return (
-                                    <TouchableOpacity key={index} onPress={() => completeTask(index)}>
+                                    <TouchableOpacity key={index} onPress={() => completeTask(index, item)}>
                                         <Task text={item} />
                                     </TouchableOpacity>
                                 )

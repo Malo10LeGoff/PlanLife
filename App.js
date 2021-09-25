@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, View, useWindowDimensions, Text } from 'react-native';
-import Tab from './components/Tab';
+import Tab_Leisures from './components/Tab_Leisures';
+import Tab_Work from './components/Tab_Work';
+import Tab_Health from './components/Tab_Health';
 import { TabView, SceneMap } from 'react-native-tab-view';
-import { GetTasks_Health } from './firebase_functions/utility_functions';
 
 export default function App() {
 
@@ -18,20 +19,20 @@ export default function App() {
 
   const FirstRoute = () => (
     <View style={styles.container}>
-      <Tab text={"Work"} />
+      <Tab_Work text={"Work"} />
     </View>
   );
 
 
   const SecondRoute = () => (
     <View style={styles.container}>
-      <Tab text={"Leisures"} />
+      <Tab_Leisures text={"Leisures"} />
     </View>
   );
 
   const ThirdRoute = () => (
     <View style={styles.container}>
-      <Tab text={"Health"} />
+      <Tab_Health text={"Health"} />
     </View>
   );
 
