@@ -5,17 +5,38 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "test": "jest --verbose",
     "eject": "expo eject"
   },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-native)/)"
+    ],
+    "globals": {
+      "__DEV__": true
+    }
+  },
   "dependencies": {
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-react": "^7.14.5",
     "@react-native-firebase/app": "^12.8.0",
     "@react-native-firebase/auth": "^12.7.5",
     "@react-native-firebase/firestore": "^12.7.5",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/native": "^6.0.2",
+    "babel-jest": "^27.2.2",
     "expo": "~42.0.1",
     "expo-status-bar": "~1.0.4",
     "firebase": "^8.2.3",
+    "mocha": "^9.1.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
@@ -23,12 +44,16 @@
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-tab-view": "^3.1.1",
-    "react-native-web": "^0.17.1"
+    "react-native-web": "^0.17.1",
+    "react-test-renderer": "^17.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "eslint": "^7.32.0",
-    "eslint-plugin-react": "^7.26.0"
+    "eslint-plugin-react": "^7.26.0",
+    "jest": "^27.2.2"
   },
   "private": true
 }

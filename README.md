@@ -13,3 +13,9 @@ Run the app in local on your phone :
 Run ESLinter to check problems (unused imports, ...) :
 - npm install eslint --save-dev
 - npx eslint file_you_want_to_chek.js
+
+Install the packages needed to test the components :
+- npm install --dev jest babel-jest @babel/preset-env @babel/preset-react react-test-renderer
+- yarn add mocha
+
+Should I use Mocha for the Unit testing of functionalities and Jest for Unit testing of components ?
