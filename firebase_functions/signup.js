@@ -1,4 +1,4 @@
-import * as firebase from "firebase";
+import firebase from "firebase";
 import "firebase/firestore";
 import { Alert } from "react-native";
 
@@ -15,7 +15,11 @@ export async function registration(email, password, lastName, firstName) {
                 lastName: lastName,
                 firstName: firstName,
             });
+        return currentUser.uid
+
     } catch (err) {
+        console.log("Registration failed !");
+        console.log(err.message);
         Alert.alert("There is something wrong!!!!", err.message);
     }
 }
@@ -25,6 +29,10 @@ export async function signIn(email, password) {
         await firebase
             .auth()
             .signInWithEmailAndPassword(email, password);
+        const currentUser = firebase.auth().currentUser;
+
+        return currentUser.uid
+
     } catch (err) {
         Alert.alert("There is something wrong!", err.message);
     }

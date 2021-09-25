@@ -1,7 +1,6 @@
 ### TODO 
-- Separate storages tasks
-- Implement CRUD functions on Firebase
-- Segment it based on the userID
+- Segment it based on the userID : password should be at least 6 chars long
+- Implement the UI for user registration 
 - Implement test + CI/CD
 - Pre-commit installation
 - Create class for a task : OOP implementation ?

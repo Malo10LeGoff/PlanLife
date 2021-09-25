@@ -1,7 +1,7 @@
 import firebase from '../config/firebaseDB';
 
-export function GetTasks_Work() {
-    const tasks = firebase.firestore().collection('Work')
+export function GetTasks_Work(user_id) {
+    const tasks = firebase.firestore().collection('users').doc(user_id)
     return tasks
 }
 
