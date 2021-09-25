@@ -30,7 +30,6 @@ export async function signIn(email, password) {
             .auth()
             .signInWithEmailAndPassword(email, password);
         const currentUser = firebase.auth().currentUser;
-
         return currentUser.uid
 
     } catch (err) {

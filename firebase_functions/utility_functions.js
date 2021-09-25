@@ -1,23 +1,28 @@
 import firebase from '../config/firebaseDB';
 
 export function GetTasks_Work(user_id) {
-    const tasks = firebase.firestore().collection('users').doc(user_id)
+    const tasks = firebase.firestore().collection('users').doc(user_id).collection('Work');
     return tasks
 }
 
 
-export function GetTasks_Leisures() {
-    const tasks = firebase.firestore().collection('Leisures')
+export function GetTasks_Leisures(user_id) {
+    const tasks = firebase.firestore().collection('users').doc(user_id).collection('Leisures');
     return tasks
 }
 
-export function GetTasks_Health() {
-    const tasks = firebase.firestore().collection('Health')
+export function GetTasks_Health(user_id) {
+    console.log(user_id);
+    const tasks = firebase.firestore().collection('users').doc(user_id).collection('Health');
+    console.log(tasks);
+    if (tasks.empty) {
+        console.log('no documents found');
+    }
     return tasks
 }
 
 
-export async function CreateTask_Health(name_task_to_create) {
+export async function CreateTask_Health(name_task_to_create, user_id) {
     firebase.firestore()
         .collection('Health')
         .add({
@@ -28,7 +33,7 @@ export async function CreateTask_Health(name_task_to_create) {
         });
 }
 
-export async function CreateTask_Work(name_task_to_create) {
+export async function CreateTask_Work(name_task_to_create, user_id) {
     firebase.firestore()
         .collection('Work')
         .add({
@@ -39,7 +44,7 @@ export async function CreateTask_Work(name_task_to_create) {
         });
 }
 
-export async function CreateTask_Leisures(name_task_to_create) {
+export async function CreateTask_Leisures(name_task_to_create, user_id) {
     firebase.firestore()
         .collection('Leisures')
         .add({
@@ -50,7 +55,7 @@ export async function CreateTask_Leisures(name_task_to_create) {
         });
 }
 
-export async function DeleteTask_Health(id_task_to_delete) {
+export async function DeleteTask_Health(id_task_to_delete, user_id) {
     // I must have the name of the document to be deleted
     firebase.firestore()
         .collection('Health')
@@ -61,7 +66,7 @@ export async function DeleteTask_Health(id_task_to_delete) {
         });
 }
 
-export async function DeleteTask_Work(id_task_to_delete) {
+export async function DeleteTask_Work(id_task_to_delete, user_id) {
 
     firebase.firestore()
         .collection('Work')
@@ -72,7 +77,7 @@ export async function DeleteTask_Work(id_task_to_delete) {
         });
 }
 
-export async function DeleteTask_Leisures(id_task_to_delete) {
+export async function DeleteTask_Leisures(id_task_to_delete, user_id) {
 
     firebase.firestore()
         .collection('Leisures')

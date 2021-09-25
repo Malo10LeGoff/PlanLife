@@ -5,16 +5,20 @@ import Tab_Work from './components/Tab_Work';
 import Tab_Health from './components/Tab_Health';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { registration, signIn, loggingOut } from './firebase_functions/signup';
+import { out } from 'react-native/Libraries/Animated/src/Easing';
+
+const out_promise_userid = [];
+const user_id = signIn("malolegoff@gmail.com", "balbababa").then((result) => {
+  //console.log(result);
+  out_promise_userid.push(result)
+  return result;
+});
+
+export { out_promise_userid };
 
 export default function App() {
 
   //registration("malolegoff@gmail.com", "balbababa", "LG", "Malo");
-  const out_promise_userid = []
-  const user_id = signIn("malolegoff@gmail.com", "balbababa").then((result) => {
-    //console.log(result);
-    out_promise_userid.push(result)
-    return result;
-  });
   console.log(out_promise_userid);
 
   const layout = useWindowDimensions();
@@ -29,19 +33,19 @@ export default function App() {
 
   const FirstRoute = () => (
     <View style={styles.container}>
-      <Tab_Work text={"Work"} />
+      <Tab_Work text={"Work"} uid={out_promise_userid} />
     </View>
   );
 
   const SecondRoute = () => (
     <View style={styles.container}>
-      <Tab_Leisures text={"Leisures"} />
+      <Tab_Leisures text={"Leisures"} uid={out_promise_userid} />
     </View>
   );
 
   const ThirdRoute = () => (
     <View style={styles.container}>
-      <Tab_Health text={"Health"} />
+      <Tab_Health text={"Health"} uid={out_promise_userid} />
     </View>
   );
 

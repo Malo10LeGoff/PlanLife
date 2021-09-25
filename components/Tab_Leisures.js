@@ -20,8 +20,8 @@ export default function Tab_Leisures(props) {
     const task_array = [];
     const mapping_task_doc_id = [];
     if (props.text == "Leisures") {
-        console.log(GetTasks_Leisures());
-        var tasks_list = GetTasks_Leisures().get().then((querySnapshot) => {
+        console.log(GetTasks_Leisures(props.uid['0']));
+        var tasks_list = GetTasks_Leisures(props.uid['0']).get().then((querySnapshot) => {
             const tempDoc = querySnapshot.docs.map((doc) => {
                 const text_taskoune = { ...doc.data() };
                 const myJSON = JSON.stringify(text_taskoune);
