@@ -1,6 +1,7 @@
 ### TODO 
 - Implement the UI for user registration :  password should be at least 6 chars long, put this kind of condition on the UI
 - Implement test + CI/CD. Test on the web app
+- Link UI to Firebase
 - Pre-commit installation
 - Create class for a task : OOP implementation ?
 - Test your app on different smartphones with Firebase Test Lab. Can this be integrated to the CI platform ? Yesy but it might be better to keep this step manual
