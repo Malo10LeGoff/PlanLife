@@ -12,9 +12,10 @@ import {
     StatusBar
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-//import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import TaskListScreen from './TaskListScreen';
+import { registration } from '../firebase_functions/signup';
 
 const SignInScreen = ({ navigation }) => {
 
@@ -188,7 +189,7 @@ const SignInScreen = ({ navigation }) => {
                     <View style={styles.button}>
                         <TouchableOpacity
                             style={styles.signIn}
-                            onPress={() => { }}
+                            onPress={() => { registration(data.username, data.password); navigation.navigate('TaskListScreen'); }}
                         >
                             <Text style={[styles.textSign, {
                                 color: '#fff'

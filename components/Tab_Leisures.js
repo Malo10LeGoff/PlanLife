@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpaci
 import Task from './Task';
 import { useState } from 'react';
 import { GetTasks_Leisures, CreateTask_Leisures, DeleteTask_Leisures } from '../firebase_functions/utility_functions';
-import { out_promise_userid } from '../App';
+import { out_promise_userid } from './TaskListScreen';
 
 
 function get_doc_id(task_name, mapping_task_doc_id) {
