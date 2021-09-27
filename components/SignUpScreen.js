@@ -180,28 +180,29 @@ const SignInScreen = ({ navigation }) => {
                     </View>
                     <View style={styles.textPrivate}>
                         <Text style={styles.color_textPrivate}>
-                            By signing up you agree to our
+                            None of your data will be used for commercial purposes
                         </Text>
-                        <Text style={[styles.color_textPrivate, { fontWeight: 'bold' }]}>{" "}Terms of service</Text>
-                        <Text style={styles.color_textPrivate}>{" "}and</Text>
-                        <Text style={[styles.color_textPrivate, { fontWeight: 'bold' }]}>{" "}Privacy policy</Text>
                     </View>
-                    <View style={styles.button}>
+                    <View style={styles.button, {
+                        backgroundColor: '#009387',
+                        borderRadius: 10,
+                        marginTop: 20,
+                    }}>
                         <TouchableOpacity
                             style={styles.signIn}
-                            onPress={() => { registration(data.username, data.password); navigation.navigate('TaskListScreen'); }}
+                            onPress={() => { registration(data.username, data.password); navigation.navigate('TaskListTab'); }}
                         >
                             <Text style={[styles.textSign, {
-                                color: '#fff'
+                                color: '#fff',
                             }]}>Sign Up</Text>
                         </TouchableOpacity>
-
+                    </View>
+                    <View style={styles.button}>
                         <TouchableOpacity
                             onPress={() => navigation.goBack()}
                             style={[styles.signIn, {
                                 borderColor: '#009387',
                                 borderWidth: 1,
-                                marginTop: 15
                             }]}
                         >
                             <Text style={[styles.textSign, {
@@ -260,7 +261,7 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: 'center',
-        marginTop: 50
+        marginTop: 20
     },
     signIn: {
         width: '100%',

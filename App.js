@@ -13,11 +13,11 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="SplashScreen">
-        <Stack.Screen name="SplashScreen" component={SplashScreen} />
-        <Stack.Screen name="SignInScreen" component={SignInScreen} />
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-        <Stack.Screen name="TaskListScreen" component={TaskListScreen} />
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={SplashScreen} />
+        <Stack.Screen name="SignInTab" component={SignInScreen} />
+        <Stack.Screen name="SignUpTab" component={SignUpScreen} />
+        <Stack.Screen name="TaskListTab" component={TaskListScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

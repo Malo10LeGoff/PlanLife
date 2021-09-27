@@ -25,6 +25,13 @@ export async function registration(email, password, lastName, firstName) {
 }
 
 export async function signIn(email, password) {
+    if (email.length == 0 || password.length == 0) {
+        Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
+            { text: 'Okay' }
+        ]);
+        return;
+    }
+
     try {
         await firebase
             .auth()

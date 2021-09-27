@@ -87,28 +87,6 @@ const SignInScreen = ({ navigation }) => {
         }
     }
 
-    const loginHandle = (userName, password) => {
-
-        const foundUser = Users.filter(item => {
-            return userName == item.username && password == item.password;
-        });
-
-        if (data.username.length == 0 || data.password.length == 0) {
-            Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
-                { text: 'Okay' }
-            ]);
-            return;
-        }
-
-        if (foundUser.length == 0) {
-            Alert.alert('Invalid User!', 'Username or password is incorrect.', [
-                { text: 'Okay' }
-            ]);
-            return;
-        }
-        signIn(foundUser);
-    }
-
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#009387' barStyle="light-content" />
@@ -203,14 +181,10 @@ const SignInScreen = ({ navigation }) => {
                     </Animatable.View>
                 }
 
-
-                <TouchableOpacity>
-                    <Text style={{ color: '#009387', marginTop: 15 }}>Forgot password?</Text>
-                </TouchableOpacity>
                 <View style={styles.button}>
                     <TouchableOpacity
                         style={styles.signIn}
-                        onPress={() => { signIn(data.username, data.password); navigation.navigate('TaskListScreen'); }}
+                        onPress={() => { signIn(data.username, data.password); navigation.navigate('TaskListTab'); }}
                     >
                         <Text style={[styles.textSign, {
                             color: '#fff'
@@ -218,7 +192,7 @@ const SignInScreen = ({ navigation }) => {
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('SignUpScreen')}
+                        onPress={() => navigation.navigate('SignUpTab')}
                         style={[styles.signIn, {
                             borderColor: '#009387',
                             borderWidth: 1,
@@ -226,7 +200,7 @@ const SignInScreen = ({ navigation }) => {
                         }]}
                     >
                         <Text style={[styles.textSign, {
-                            color: '#009387'
+                            color: '#fff'
                         }]}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
@@ -296,6 +270,7 @@ const styles = StyleSheet.create({
     signIn: {
         width: '100%',
         height: 50,
+        backgroundColor: '#009387',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10

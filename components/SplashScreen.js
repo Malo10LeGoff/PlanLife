@@ -39,7 +39,7 @@ const SplashScreen = ({ navigation }) => {
                 }]}>Stay connected with everyone!</Text>
                 <Text style={styles.text}>Sign in with account</Text>
                 <View style={styles.button}>
-                    <TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('SignInTab')}>
                         <View style={styles.addWrapper}>
                             <Text style={styles.addText}>Get Started</Text>
                         </View>
@@ -79,18 +79,24 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30
     },
     addWrapper: {
-        width: 60,
+        width: 100,
         height: 60,
-        backgroundColor: '#FFF',
-        borderRadius: 60,
+        marginTop: 20,
+        backgroundColor: '#33afff',
+        borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
-        borderColor: '#C0C0C0',
+        borderColor: '#33afff',
         borderWidth: 1,
+    },
+    addText: {
+        fontWeight: 'bold',
+        alignItems: 'center'
     },
     logo: {
         width: height_logo,
-        height: height_logo
+        height: height_logo,
+        borderRadius: 200,
     },
     title: {
         color: '#05375a',
@@ -100,10 +106,6 @@ const styles = StyleSheet.create({
     text: {
         color: 'grey',
         marginTop: 5
-    },
-    button: {
-        alignItems: 'flex-end',
-        marginTop: 30
     },
     signIn: {
         width: 150,
