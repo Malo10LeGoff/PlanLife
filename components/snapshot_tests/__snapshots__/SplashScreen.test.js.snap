@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#009387",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 2,
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Image
+      duraton="1500"
+      forwardedRef={[Function]}
+      resizeMode="stretch"
+      source={1}
+      style={
+        Object {
+          "borderRadius": 200,
+          "height": 373.52000000000004,
+          "opacity": 0,
+          "transform": Array [
+            Object {
+              "scale": 0.3,
+            },
+          ],
+          "width": 373.52000000000004,
+        }
+      }
+    />
+  </View>
+  <View
+    forwardedRef={[Function]}
+    style={
+      Object {
+        "backgroundColor": "rgb(242, 242, 242)",
+        "borderTopLeftRadius": 30,
+        "borderTopRightRadius": 30,
+        "flex": 1,
+        "opacity": 0,
+        "paddingHorizontal": 30,
+        "paddingVertical": 50,
+        "transform": Array [
+          Object {
+            "translateY": 500,
+          },
+        ],
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#05375a",
+            "fontSize": 30,
+            "fontWeight": "bold",
+          },
+          Object {
+            "color": "rgb(28, 28, 30)",
+          },
+        ]
+      }
+    >
+      Stay connected with everyone!
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "grey",
+          "marginTop": 5,
+        }
+      }
+    >
+      Sign in with account
+    </Text>
+    <View>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#33afff",
+              "borderColor": "#33afff",
+              "borderRadius": 5,
+              "borderWidth": 1,
+              "height": 60,
+              "justifyContent": "center",
+              "marginTop": 20,
+              "width": 100,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignItems": "center",
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Get Started
+          </Text>
+        </View>
+        <Text />
+      </View>
+    </View>
+  </View>
+</View>
+`;
