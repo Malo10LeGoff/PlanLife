@@ -20,8 +20,6 @@ console.log(out_promise_userid['0']);
 
 const TaskListScreen = () => {
 
-    //registration("malolegoff@gmail.com", "balbababa", "LG", "Malo");
-
     const layout = useWindowDimensions();
 
     const [index, setIndex] = React.useState(0);

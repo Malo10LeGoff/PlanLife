@@ -26,3 +26,11 @@ Install the packages needed to test the components :
 Should I use Mocha for the Unit testing of functionalities and Jest for Unit testing of components ?
 
 If you're forking this project, take note that if you use multiple package manager, it may raises issues. Use only expo to install packages
+
+To finish the set up on Google Play Store, I need :
+- Screenshots of the application
+- Logo of the app with the dimensions 512 by 512 pixels
+- A presentation image for phones, and tablets
+Then I should be able to apply my APK file
+
+Install mocha : npm install mocha --save-dev
