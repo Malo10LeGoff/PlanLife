@@ -10,6 +10,7 @@ npm-debug.*
 web-build/
 config/key.js
 config.env
+secret_sa.json
 
 # macOS
 .DS_Store

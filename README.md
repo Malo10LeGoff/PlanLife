@@ -1,8 +1,9 @@
 ### TODO 
 - Implement the UI for user registration :  password should be at least 6 chars long, put this kind of condition on the UI
-- Implement test + CI/CD. Test on the web app
 - Pre-commit installation. We use Husky for this, but it doesn't seem to work well
 - Create class for a task : OOP implementation ?
+- Refactorization
+- Create a privacy policy for the app
 
 Manual Steps :
 - Test your app on different smartphones with Firebase Test Lab. Can this be integrated to the CI platform ? Yesy but it might be better to keep this step manual. To do that, run expo build:android after being connected to the Expo website, it will connect you to the Expo server that is going to build your APK/IPA (it can take a bit of time). Then you just have to put it in TestLab normally. The free version is limited to 5 daily test executions. I try to choose the most widely used phones with the largest ranges of APIs
@@ -33,4 +34,4 @@ To finish the set up on Google Play Store, I need :
 - A presentation image for phones, and tablets
 Then I should be able to apply my APK file
 
-Install mocha : npm install mocha --save-dev
+Install mocha : npm install mocha --save-dev. Mocha is useless, we can do easy unit testing with jest and simple keywords (describe, assert, ...)
