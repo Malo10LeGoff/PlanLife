@@ -2,45 +2,29 @@ import React from 'react';
 import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
 import Task from './Task';
 import { useState } from 'react';
-import { GetTasks_Health, CreateTask_Health, DeleteTask_Health } from '../firebase_functions/utility_functions';
-import { out_promise_userid } from './TaskListScreen';
+import { GetTasks, CreateTask, DeleteTask, get_doc_id } from '../firebase_functions/utility_functions';
+import { out_promise_userid } from '../screens/TaskListScreen';
 
 
-function get_doc_id(task_name, mapping_task_doc_id) {
-    var arrayLength = mapping_task_doc_id.length;
-    for (var i = 0; i < arrayLength; i++) {
-        console.log(mapping_task_doc_id[i]);
-        if (mapping_task_doc_id[i].task_name_parsed == task_name) {
-            return mapping_task_doc_id[i].id;
-        }
-    }
-}
+export default function Tab(props) {
 
-export default function Tab_Health(props) {
     const [task, setTask] = useState();
     const task_array = [];
     const mapping_task_doc_id = [];
-    if (props.text == "Health") {
-        console.log(GetTasks_Health(out_promise_userid['0']));
-        console.log(out_promise_userid['0']);
-        var tasks_list = GetTasks_Health(out_promise_userid['0']).get().then((querySnapshot) => {
-            if (querySnapshot.empty) {
-                console.log('no documents found');
+    var tasks_list = GetTasks(out_promise_userid['0'], props.text).get().then((querySnapshot) => {
+
+        const tempDoc = querySnapshot.docs.map((doc) => {
+            const text_task = JSON.stringify({ ...doc.data() });
+            const task_name_parsed = text_task.substring(9, text_task.length - 2).replace('\\"', "").replace('\"', "").replace('\\', "");
+            if (!task_array.includes(task_name_parsed)) {
+                task_array.push(task_name_parsed)
+                mapping_task_doc_id.push({ id: doc.id, task_name_parsed })
             }
-            const tempDoc = querySnapshot.docs.map((doc) => {
-                const text_taskoune = { ...doc.data() };
-                const myJSON = JSON.stringify(text_taskoune);
-                if (!task_array.includes(myJSON.substring(9, myJSON.length - 2).replace('\\"', "").replace('\"', "").replace('\\', ""))) {
-                    const task_name_parsed = myJSON.substring(9, myJSON.length - 2).replace('\\"', "").replace('\"', "").replace('\\', "");
-                    task_array.push(task_name_parsed)
-                    mapping_task_doc_id.push({ id: doc.id, task_name_parsed })
-                }
-                return { id: doc.id, ...doc.data() }
-            })
-            return tempDoc;
-        }
-        );
+            return { id: doc.id, ...doc.data() }
+        })
+        return tempDoc;
     }
+    );
 
     const [taskItems, setTaskItems] = useState(task_array);
     console.log(taskItems);
@@ -50,7 +34,7 @@ export default function Tab_Health(props) {
     const handleAddTask = () => {
         Keyboard.dismiss();
         setTaskItems([...taskItems, task])
-        CreateTask_Health(task, out_promise_userid['0']);
+        CreateTask(task, out_promise_userid['0'], props.text);
         setTask(null);
     }
 
@@ -59,7 +43,7 @@ export default function Tab_Health(props) {
         let itemsCopy = [...taskItems];
         itemsCopy.splice(index, 1);
         const doc_id = get_doc_id(item, mapping_task_doc_id)
-        DeleteTask_Health(doc_id, out_promise_userid['0'])
+        DeleteTask(doc_id, out_promise_userid['0'], props.text)
         setTaskItems(itemsCopy)
     }
 

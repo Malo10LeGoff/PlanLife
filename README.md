@@ -2,7 +2,7 @@
 - Implement the UI for user registration :  password should be at least 6 chars long, put this kind of condition on the UI
 - Pre-commit installation. We use Husky for this, but it doesn't seem to work well
 - Create class for a task : OOP implementation ?
-- Refactorization
+- Refactorization of the code (to be done tomorrow)
 - Create a privacy policy for the app
 
 Manual Steps :
@@ -35,3 +35,5 @@ To finish the set up on Google Play Store, I need :
 Then I should be able to apply my APK file
 
 Install mocha : npm install mocha --save-dev. Mocha is useless, we can do easy unit testing with jest and simple keywords (describe, assert, ...)
+
+Privacy rules are described here : https://www.termsfeed.com/live/21304c7b-12b7-422f-a42a-74e20b6b33c0

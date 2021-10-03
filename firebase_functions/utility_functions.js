@@ -1,20 +1,8 @@
 import firebase from '../config/firebaseDB';
 
-export function GetTasks_Work(user_id) {
-    const tasks = firebase.firestore().collection('users').doc(user_id).collection('Work');
-    return tasks
-}
 
-
-export function GetTasks_Leisures(user_id) {
-    const tasks = firebase.firestore().collection('users').doc(user_id).collection('Leisures');
-    return tasks
-}
-
-export function GetTasks_Health(user_id) {
-    console.log(user_id);
-    const tasks = firebase.firestore().collection('users').doc(user_id).collection('Health');
-    console.log(tasks);
+export function GetTasks(user_id, category) {
+    const tasks = firebase.firestore().collection('users').doc(user_id).collection(category);
     if (tasks.empty) {
         console.log('no documents found');
     }
@@ -22,9 +10,9 @@ export function GetTasks_Health(user_id) {
 }
 
 
-export async function CreateTask_Health(name_task_to_create, user_id) {
+export async function CreateTask(name_task_to_create, user_id, category) {
     firebase.firestore()
-        .collection('users').doc(user_id).collection("Health")
+        .collection('users').doc(user_id).collection(category)
         .add({
             text: name_task_to_create,
         })
@@ -33,34 +21,13 @@ export async function CreateTask_Health(name_task_to_create, user_id) {
         });
 }
 
-export async function CreateTask_Work(name_task_to_create, user_id) {
-    firebase.firestore()
-        .collection('users').doc(user_id).collection("Work")
-        .add({
-            text: name_task_to_create,
-        })
-        .then(() => {
-            console.log('Task added!');
-        });
-}
 
-export async function CreateTask_Leisures(name_task_to_create, user_id) {
-    firebase.firestore()
-        .collection('users').doc(user_id).collection("Leisures")
-        .add({
-            text: name_task_to_create,
-        })
-        .then(() => {
-            console.log('Task added!');
-        });
-}
-
-export async function DeleteTask_Health(id_task_to_delete, user_id) {
+export async function DeleteTask(id_task_to_delete, user_id, category) {
     // I must have the name of the document to be deleted
     firebase.firestore()
         .collection('users')
         .doc(user_id).
-        collection("Health")
+        collection(category)
         .doc(id_task_to_delete)
         .delete()
         .then(() => {
@@ -68,28 +35,12 @@ export async function DeleteTask_Health(id_task_to_delete, user_id) {
         });
 }
 
-export async function DeleteTask_Work(id_task_to_delete, user_id) {
-
-    firebase.firestore()
-        .collection('users')
-        .doc(user_id)
-        .collection("Health")
-        .doc(id_task_to_delete)
-        .delete()
-        .then(() => {
-            console.log('Task deleted!');
-        });
-}
-
-export async function DeleteTask_Leisures(id_task_to_delete, user_id) {
-
-    firebase.firestore()
-        .collection('users')
-        .doc(user_id)
-        .collection("Health")
-        .doc(id_task_to_delete)
-        .delete()
-        .then(() => {
-            console.log('Task deleted!');
-        });
+export function get_doc_id(task_name, mapping_task_doc_id) {
+    var arrayLength = mapping_task_doc_id.length;
+    for (var i = 0; i < arrayLength; i++) {
+        console.log(mapping_task_doc_id[i]);
+        if (mapping_task_doc_id[i].task_name_parsed == task_name) {
+            return mapping_task_doc_id[i].id;
+        }
+    }
 }
