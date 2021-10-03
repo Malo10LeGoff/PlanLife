@@ -16,6 +16,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import TaskListScreen from './TaskListScreen';
 import { registration } from '../firebase_functions/signup';
+import Modal from "react-native-modal";
+
 
 const SignInScreen = ({ navigation }) => {
 
@@ -27,6 +29,24 @@ const SignInScreen = ({ navigation }) => {
         secureTextEntry: true,
         confirm_secureTextEntry: true,
     });
+
+    const [isModalVisible, setIsModalVisible] = React.useState(false);
+    const handleModal = () => setIsModalVisible(() => !isModalVisible);
+
+    const signUp_check = () => {
+        const uid = registration(data.username, data.password).then((result) => {
+            console.log(typeof (result));
+            if (typeof (result) != "undefined") {
+                navigation.navigate('TaskListTab');
+            }
+            else {
+                navigation.navigate('SignUpTab');
+                handleModal();
+                console.log("Sign in did not work");
+            }
+        }
+        )
+    }
 
     const textInputChange = (val) => {
         if (val.length !== 0) {
@@ -190,8 +210,14 @@ const SignInScreen = ({ navigation }) => {
                     }}>
                         <TouchableOpacity
                             style={styles.signIn}
-                            onPress={() => { registration(data.username, data.password); navigation.navigate('TaskListTab'); }}
+                            onPress={() => { signUp_check(data.username, data.password); }}
                         >
+                            <Modal isVisible={isModalVisible}>
+                                <View style={{ flex: 1 }}>
+                                    <Text>You made a mistake typing your credentials !</Text>
+                                    <Button title="You made a mistake typing your credentials !" onPress={handleModal} />
+                                </View>
+                            </Modal>
                             <Text style={[styles.textSign, {
                                 color: '#fff',
                             }]}>Sign Up</Text>

@@ -7,15 +7,17 @@ import {
     Platform,
     StyleSheet,
     StatusBar,
-    Alert
+    Alert,
+    Button
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 //import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { signIn } from '../firebase_functions/signup';
-
+import Popup from '../components/Popup';
 import { useTheme } from 'react-native-paper';
+import Modal from "react-native-modal";
 
 const SignInScreen = ({ navigation }) => {
 
@@ -28,9 +30,25 @@ const SignInScreen = ({ navigation }) => {
         isValidPassword: true,
     });
 
+    const [isModalVisible, setIsModalVisible] = React.useState(false);
+    const handleModal = () => setIsModalVisible(() => !isModalVisible);
+
     const { colors } = useTheme();
 
-    //const { signIn } = React.useContext(AuthContext);
+    const signIn_check = () => {
+        const uid = signIn(data.username, data.password).then((result) => {
+            console.log(typeof (result));
+            if (typeof (result) != "undefined") {
+                navigation.navigate('TaskListTab');
+            }
+            else {
+                navigation.navigate('SignInTab');
+                handleModal();
+                console.log("Sign in did not work");
+            }
+        }
+        )
+    }
 
     const textInputChange = (val) => {
         if (val.trim().length >= 4) {
@@ -184,8 +202,14 @@ const SignInScreen = ({ navigation }) => {
                 <View style={styles.button}>
                     <TouchableOpacity
                         style={styles.signIn}
-                        onPress={() => { signIn(data.username, data.password); navigation.navigate('TaskListTab'); }}
+                        onPress={() => { signIn_check(data.username, data.password); }}
                     >
+                        <Modal isVisible={isModalVisible}>
+                            <View style={{ flex: 1 }}>
+                                <Text>You made a mistake typing your credentials !</Text>
+                                <Button title="You made a mistake typing your credentials !" onPress={handleModal} />
+                            </View>
+                        </Modal>
                         <Text style={[styles.textSign, {
                             color: '#fff'
                         }]}>Sign In</Text>
