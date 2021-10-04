@@ -1,6 +1,5 @@
 ### TODO 
-- Debug
-- Add features to classes (more details, ...) : Start by implementing a class for tasks
+- Add features to classes (more details, OOP, ...)
 - Upload the app on the Apple store
 - Forgot password feature
 

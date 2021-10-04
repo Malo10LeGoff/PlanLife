@@ -14,7 +14,7 @@ import * as Animatable from 'react-native-animatable';
 //import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-import { signIn, forgotPassword } from '../firebase_functions/signup';
+import { forgotPassword } from '../firebase_functions/signup';
 import { useTheme } from 'react-native-paper';
 import Modal from "react-native-modal";
 
@@ -27,31 +27,15 @@ const SignInScreen = ({ navigation }) => {
 
     const [data, setData] = React.useState({
         username: '',
-        password: '',
         check_textInputChange: false,
         secureTextEntry: true,
         isValidUser: true,
-        isValidPassword: true,
     });
 
     const [isModalVisible, setIsModalVisible] = React.useState(false);
     const handleModal = () => setIsModalVisible(() => !isModalVisible);
 
     const { colors } = useTheme();
-
-    const signIn_check = () => {
-        const uid_b = signIn(data.username, data.password).then((result) => {
-            if (typeof (result) != "undefined") {
-                navigation.navigate('TaskListTab', { user_id: result },);
-                uid_signin.push(result);
-            }
-            else {
-                handleModal();
-                navigation.navigate('SignInTab');
-            }
-        }
-        )
-    }
 
     const textInputChange = (val) => {
         if (val.trim().length >= 4) {
@@ -69,29 +53,6 @@ const SignInScreen = ({ navigation }) => {
                 isValidUser: false
             });
         }
-    }
-
-    const handlePasswordChange = (val) => {
-        if (val.trim().length >= 8) {
-            setData({
-                ...data,
-                password: val,
-                isValidPassword: true
-            });
-        } else {
-            setData({
-                ...data,
-                password: val,
-                isValidPassword: false
-            });
-        }
-    }
-
-    const updateSecureTextEntry = () => {
-        setData({
-            ...data,
-            secureTextEntry: !data.secureTextEntry
-        });
     }
 
     const handleValidUser = (val) => {
@@ -112,7 +73,7 @@ const SignInScreen = ({ navigation }) => {
         <View style={styles.container}>
             <StatusBar backgroundColor='#009387' barStyle="light-content" />
             <View style={styles.header}>
-                <Text style={styles.text_header}>Welcome!</Text>
+                <Text style={styles.text_header}>Get your tasks back !</Text>
             </View>
             <Animatable.View
                 animation="fadeInUpBig"
@@ -157,57 +118,10 @@ const SignInScreen = ({ navigation }) => {
                     </Animatable.View>
                 }
 
-
-                <Text style={[styles.text_footer, {
-                    color: colors.text,
-                    marginTop: 35
-                }]}>Password</Text>
-                <View style={styles.action}>
-                    <Feather
-                        name="lock"
-                        color={colors.text}
-                        size={20}
-                    />
-                    <TextInput
-                        placeholder="Your Password"
-                        placeholderTextColor="#666666"
-                        secureTextEntry={data.secureTextEntry ? true : false}
-                        style={[styles.textInput, {
-                            color: colors.text
-                        }]}
-                        autoCapitalize="none"
-                        onChangeText={(val) => handlePasswordChange(val)}
-                    />
-                    <TouchableOpacity
-                        onPress={updateSecureTextEntry}
-                    >
-                        {data.secureTextEntry ?
-                            <Feather
-                                name="eye-off"
-                                color="grey"
-                                size={20}
-                            />
-                            :
-                            <Feather
-                                name="eye"
-                                color="grey"
-                                size={20}
-                            />
-                        }
-                    </TouchableOpacity>
-                </View>
-                {data.isValidPassword ? null :
-                    <Animatable.View animation="fadeInLeft" duration={500}>
-                        <Text style={styles.errorMsg}>Password must be 8 characters long.</Text>
-                    </Animatable.View>
-                }
-                <TouchableOpacity style={styles.text_footer} onPress={() => { navigation.navigate('ForgotPwdTab') }}>
-                    <Text style={styles.text_footer}>Forgot your password ?</Text>
-                </TouchableOpacity>
                 <View style={styles.button}>
                     <TouchableOpacity
                         style={styles.signIn}
-                        onPress={() => { signIn_check(data.username, data.password); }}
+                        onPress={() => { forgotPassword(data.username); }}
                     >
                         <Modal isVisible={isModalVisible}>
                             <View style={{ flex: 1 }}>
@@ -217,7 +131,7 @@ const SignInScreen = ({ navigation }) => {
                         </Modal>
                         <Text style={[styles.textSign, {
                             color: '#fff'
-                        }]}>Sign In</Text>
+                        }]}>Send mail to reset password</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
@@ -231,6 +145,19 @@ const SignInScreen = ({ navigation }) => {
                         <Text style={[styles.textSign, {
                             color: '#fff'
                         }]}>Sign Up</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('SignInTab')}
+                        style={[styles.signIn, {
+                            borderColor: '#009387',
+                            borderWidth: 1,
+                            marginTop: 15
+                        }]}
+                    >
+                        <Text style={[styles.textSign, {
+                            color: '#fff'
+                        }]}>Sign In</Text>
                     </TouchableOpacity>
                 </View>
             </Animatable.View>
@@ -266,8 +193,7 @@ const styles = StyleSheet.create({
     },
     text_footer: {
         color: '#05375a',
-        fontSize: 18,
-        marginTop: 10
+        fontSize: 18
     },
     action: {
         flexDirection: 'row',

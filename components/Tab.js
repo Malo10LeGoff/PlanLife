@@ -6,12 +6,13 @@ import { GetTasks, CreateTask, DeleteTask, get_doc_id } from '../firebase_functi
 
 
 
+
+
 export default function Tab(props) {
 
     const [task, setTask] = useState();
     const task_array = [];
     const mapping_task_doc_id = [];
-    console.log(props.uid);
     var tasks_list = GetTasks(props.uid, props.text).get().then((querySnapshot) => {
 
         const tempDoc = querySnapshot.docs.map((doc) => {
@@ -28,8 +29,10 @@ export default function Tab(props) {
     );
 
     const [taskItems, setTaskItems] = useState(task_array);
-    console.log(taskItems);
-    console.log(mapping_task_doc_id);
+
+    function set_task_wrapper(text) {
+        setTask(text);
+    }
 
     // Put a props here taking the tasks from firebase and the function that creates a document in Firebase
     const handleAddTask = () => {
@@ -48,9 +51,9 @@ export default function Tab(props) {
         setTaskItems(itemsCopy)
     }
 
+
     return (
         <View style={styles.container}>
-
             <ScrollView
                 contentContainerStyle={{
                     flexGrow: 1
@@ -59,6 +62,11 @@ export default function Tab(props) {
             >
                 <View style={styles.tasksWrapper}>
                     <Text style={styles.sectionTitle}>Today's tasks</Text>
+                    <View>
+                        <TouchableOpacity style={styles.sectionTitle} onPress={() => set_task_wrapper('Write a task')}>
+                            <Text style={styles.sectionSubTitle}>Check your tasks !</Text>
+                        </TouchableOpacity>
+                    </View>
                     <View style={styles.items}>
                         {
                             taskItems.map((item, index) => {
@@ -77,7 +85,7 @@ export default function Tab(props) {
                 //  behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={styles.writeTaskWrapper}
             >
-                <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => setTask(text)} />
+                <TextInput style={styles.input} placeholder={'Write a task'} value={task} onChangeText={text => set_task_wrapper(text)} />
                 <TouchableOpacity onPress={() => handleAddTask()}>
                     <View style={styles.addWrapper}>
                         <Text style={styles.addText}>+</Text>
@@ -97,8 +105,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
     },
     sectionTitle: {
-        fontSize: 24,
+        fontSize: 28,
         fontWeight: 'bold'
+    },
+    sectionSubTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        paddingTop: 40
     },
     items: {
         marginTop: 30,

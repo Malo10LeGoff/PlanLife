@@ -2,17 +2,11 @@ import React from 'react';
 import { StyleSheet, View, useWindowDimensions, Text } from 'react-native';
 import Tab from '../components/Tab'
 import { TabView, SceneMap } from 'react-native-tab-view';
-import { uid_signup } from './SignUpScreen';
-import { uid_signin } from './SignInScreen';
 
 
 const TaskListScreen = ({ route }) => {
 
-    console.log(route.params.user_id);
-
     const uid = route.params.user_id;
-
-    console.log(uid);
 
     const layout = useWindowDimensions();
 

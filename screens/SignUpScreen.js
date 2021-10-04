@@ -4,7 +4,6 @@ import {
     Text,
     Button,
     TouchableOpacity,
-    Dimensions,
     TextInput,
     Platform,
     StyleSheet,
@@ -16,7 +15,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { registration } from '../firebase_functions/signup';
 import Modal from "react-native-modal";
-import { uid_signin } from './SignInScreen';
 
 var uid_signup = [];
 
@@ -39,7 +37,6 @@ const SignInScreen = ({ navigation }) => {
 
     const signUp_check = () => {
         const uid_b = registration(data.username, data.password).then((result) => {
-            console.log(typeof (result));
             if (typeof (result) != "undefined") {
                 navigation.navigate('TaskListTab', { user_id: result },);
                 uid_signup.push(result);
@@ -48,7 +45,6 @@ const SignInScreen = ({ navigation }) => {
             else {
                 navigation.navigate('SignUpTab');
                 handleModal();
-                console.log("Sign Up did not work");
             }
         }
         )
@@ -109,7 +105,7 @@ const SignInScreen = ({ navigation }) => {
                 style={styles.footer}
             >
                 <ScrollView>
-                    <Text style={styles.text_footer}>Username</Text>
+                    <Text style={styles.text_footer}>Email</Text>
                     <View style={styles.action}>
                         <FontAwesome
                             name="user-o"
@@ -117,7 +113,7 @@ const SignInScreen = ({ navigation }) => {
                             size={20}
                         />
                         <TextInput
-                            placeholder="Your Username"
+                            placeholder="Your Email"
                             style={styles.textInput}
                             autoCapitalize="none"
                             onChangeText={(val) => textInputChange(val)}
@@ -221,7 +217,7 @@ const SignInScreen = ({ navigation }) => {
                             <Modal isVisible={isModalVisible}>
                                 <View style={{ flex: 1 }}>
                                     <Text>You made a mistake typing your credentials !</Text>
-                                    <Button title="There is a problem, your mail address is problably already in use ! " onPress={handleModal} />
+                                    <Button title="There is a problem. Perhaps your mail address is problably already in use or you did not write a valid mail address ! " onPress={handleModal} />
                                 </View>
                             </Modal>
                             <Text style={[styles.textSign, {

@@ -51,3 +51,12 @@ export async function loggingOut() {
         Alert.alert('There is something wrong!', err.message);
     }
 }
+
+export async function forgotPassword(email) {
+    firebase.auth().sendPasswordResetEmail(email)
+        .then(function () {
+            alert('Please check your email...')
+        }).catch(function (e) {
+            console.log(e)
+        })
+}

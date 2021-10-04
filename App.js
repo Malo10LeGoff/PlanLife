@@ -6,6 +6,7 @@ import SplashScreen from './screens/SplashScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import TaskListScreen from './screens/TaskListScreen';
+import ForgotPwdScreen from './screens/ForgotPwdScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -18,6 +19,7 @@ function App() {
         <Stack.Screen name="SignInTab" component={SignInScreen} />
         <Stack.Screen name="SignUpTab" component={SignUpScreen} />
         <Stack.Screen name="TaskListTab" component={TaskListScreen} />
+        <Stack.Screen name="ForgotPwdTab" component={ForgotPwdScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
