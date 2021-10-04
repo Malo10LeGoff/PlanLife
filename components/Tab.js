@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpaci
 import Task from './Task';
 import { useState } from 'react';
 import { GetTasks, CreateTask, DeleteTask, get_doc_id } from '../firebase_functions/utility_functions';
-import { out_promise_userid } from '../screens/TaskListScreen';
+
 
 
 export default function Tab(props) {
@@ -11,7 +11,8 @@ export default function Tab(props) {
     const [task, setTask] = useState();
     const task_array = [];
     const mapping_task_doc_id = [];
-    var tasks_list = GetTasks(out_promise_userid['0'], props.text).get().then((querySnapshot) => {
+    console.log(props.uid);
+    var tasks_list = GetTasks(props.uid, props.text).get().then((querySnapshot) => {
 
         const tempDoc = querySnapshot.docs.map((doc) => {
             const text_task = JSON.stringify({ ...doc.data() });
@@ -34,7 +35,7 @@ export default function Tab(props) {
     const handleAddTask = () => {
         Keyboard.dismiss();
         setTaskItems([...taskItems, task])
-        CreateTask(task, out_promise_userid['0'], props.text);
+        CreateTask(task, props.uid, props.text);
         setTask(null);
     }
 
@@ -43,7 +44,7 @@ export default function Tab(props) {
         let itemsCopy = [...taskItems];
         itemsCopy.splice(index, 1);
         const doc_id = get_doc_id(item, mapping_task_doc_id)
-        DeleteTask(doc_id, out_promise_userid['0'], props.text)
+        DeleteTask(doc_id, props.uid, props.text)
         setTaskItems(itemsCopy)
     }
 

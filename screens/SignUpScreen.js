@@ -14,9 +14,13 @@ import {
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-import TaskListScreen from './TaskListScreen';
 import { registration } from '../firebase_functions/signup';
 import Modal from "react-native-modal";
+import { uid_signin } from './SignInScreen';
+
+var uid_signup = [];
+
+export { uid_signup };
 
 
 const SignInScreen = ({ navigation }) => {
@@ -34,15 +38,20 @@ const SignInScreen = ({ navigation }) => {
     const handleModal = () => setIsModalVisible(() => !isModalVisible);
 
     const signUp_check = () => {
-        const uid = registration(data.username, data.password).then((result) => {
+        const uid_b = registration(data.username, data.password).then((result) => {
             console.log(typeof (result));
             if (typeof (result) != "undefined") {
-                navigation.navigate('TaskListTab');
+                navigation.navigate('TaskListTab',
+                    {
+                        param: result,
+                    });
+                uid_signup.push(result);
+
             }
             else {
                 navigation.navigate('SignUpTab');
                 handleModal();
-                console.log("Sign in did not work");
+                console.log("Sign Up did not work");
             }
         }
         )
@@ -215,7 +224,7 @@ const SignInScreen = ({ navigation }) => {
                             <Modal isVisible={isModalVisible}>
                                 <View style={{ flex: 1 }}>
                                     <Text>You made a mistake typing your credentials !</Text>
-                                    <Button title="You made a mistake typing your credentials !" onPress={handleModal} />
+                                    <Button title="There is a problem, your mail address is problably already in use ! " onPress={handleModal} />
                                 </View>
                             </Modal>
                             <Text style={[styles.textSign, {

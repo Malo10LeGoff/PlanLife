@@ -15,9 +15,13 @@ import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { signIn } from '../firebase_functions/signup';
-import Popup from '../components/Popup';
 import { useTheme } from 'react-native-paper';
 import Modal from "react-native-modal";
+
+
+var uid_signin = [];
+
+export { uid_signin };
 
 const SignInScreen = ({ navigation }) => {
 
@@ -36,14 +40,16 @@ const SignInScreen = ({ navigation }) => {
     const { colors } = useTheme();
 
     const signIn_check = () => {
-        const uid = signIn(data.username, data.password).then((result) => {
+        const uid_b = signIn(data.username, data.password).then((result) => {
             console.log(typeof (result));
+            console.log(result);
             if (typeof (result) != "undefined") {
-                navigation.navigate('TaskListTab');
+                navigation.navigate('TaskListTab', { user_id: result },);
+                uid_signin.push(result);
             }
             else {
-                navigation.navigate('SignInTab');
                 handleModal();
+                navigation.navigate('SignInTab');
                 console.log("Sign in did not work");
             }
         }

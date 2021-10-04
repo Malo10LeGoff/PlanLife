@@ -2,14 +2,22 @@ import React from 'react';
 import { StyleSheet, View, useWindowDimensions, Text } from 'react-native';
 import Tab from '../components/Tab'
 import { TabView, SceneMap } from 'react-native-tab-view';
-import { registration, signIn, loggingOut } from '../firebase_functions/signup';
-import { out } from 'react-native/Libraries/Animated/src/Easing';
+import { uid_signup } from './SignUpScreen';
+import { uid_signin } from './SignInScreen';
 
-const out_promise_userid = [];
 
-export { out_promise_userid };
+const TaskListScreen = ({ route, props }) => {
 
-const TaskListScreen = () => {
+    console.log(uid_signup);
+    console.log(uid_signin);
+    console.log(props.route.user_id);
+
+    const uid = props.route.user_id;
+
+    console.log(uid);
+
+    console.log(props.navigation.state);
+
 
     const layout = useWindowDimensions();
 
@@ -23,19 +31,19 @@ const TaskListScreen = () => {
 
     const FirstRoute = () => (
         <View style={styles.container}>
-            <Tab text={"Work"} uid={out_promise_userid} />
+            <Tab text={"Work"} uid={uid['0']} />
         </View>
     );
 
     const SecondRoute = () => (
         <View style={styles.container}>
-            <Tab text={"Leisures"} uid={out_promise_userid} />
+            <Tab text={"Leisures"} uid={uid['0']} />
         </View>
     );
 
     const ThirdRoute = () => (
         <View style={styles.container}>
-            <Tab text={"Health"} uid={out_promise_userid} />
+            <Tab text={"Health"} uid={uid['0']} />
         </View>
     );
 
