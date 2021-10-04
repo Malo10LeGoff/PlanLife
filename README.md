@@ -37,17 +37,18 @@ You might want to go straight to the app to test how it runs !
 
 To have a better idea of the app, I put some screenshots down there :
 
+<img src="./assets/picture_2.jpg"
+     style="float: left; margin-right: 10px; heigh: 480px; width: 300px" />
 
-![](./assets/picture_1.jpg?raw=true)
-
-
-![](./assets/picture_2.jpg?raw=true)
-
-
-![](./assets/picture_3.jpg?raw=true)
+<img src="./assets/picture_3.jpg"
+     style="float: left; margin-right: 10px; heigh: 480px; width: 300px" />
 
 
-![](./assets/picture_4.jpg?raw=true)
+<img src="./assets/picture_4.jpg"
+     style="float: left; margin-right: 10px; heigh: 480px; width: 300px" />
 
 
-![](./assets/picture_5.jpg?raw=true)
+<img src="./assets/picture_5.jpg"
+     style="float: left; margin-right: 10px; heigh: 480px; width: 300px" />
+
+
