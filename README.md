@@ -1,3 +1,6 @@
+### Important
+If you spotted a bug or a feature you'd like to add, feel free to contact me or to make a pull request
+
 ### TODO 
 - Add features to classes (more details, OOP, ...)
 - Upload the app on the Apple store
@@ -32,4 +35,9 @@ If you use the application and you want to know what I do with what data you ent
 You might want to go straight to the app to test how it runs !
 
 
-fake credentials : "malolegoff@gmail.com", "balbababa"
+To have a better idea of the app, I put some screenshots down there :
+
+![](./assets/picture_1.png?raw=true)
+
+<img src="assets/picture_1.png"
+     alt="Markdown Monster icon"/>
