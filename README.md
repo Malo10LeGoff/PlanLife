@@ -4,7 +4,6 @@ If you spotted a bug or a feature you'd like to add, feel free to contact me or 
 ### TODO 
 - Add features to classes (more details, OOP, ...)
 - Upload the app on the Apple store
-- Forgot password feature
 
 ### How to run the app on your phone :
 
@@ -40,13 +39,17 @@ To have a better idea of the app, I put some screenshots down there :
 <img src="./assets/picture_2.jpg"
      style="float: left; margin-right: 10px; heigh: 480px; width: 300px" />
 
+---------------------------------------
+
 <img src="./assets/picture_3.jpg"
      style="float: left; margin-right: 10px; heigh: 480px; width: 300px" />
 
+---------------------------------------
 
 <img src="./assets/picture_4.jpg"
      style="float: left; margin-right: 10px; heigh: 480px; width: 300px" />
 
+---------------------------------------
 
 <img src="./assets/picture_5.jpg"
      style="float: left; margin-right: 10px; heigh: 480px; width: 300px" />
