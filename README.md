@@ -2,6 +2,7 @@
 - Debug
 - Add features to classes (more details, ...) : Start by implementing a class for tasks
 - Upload the app on the Apple store
+- Forgot password feature
 
 ### How to run the app on your phone :
 

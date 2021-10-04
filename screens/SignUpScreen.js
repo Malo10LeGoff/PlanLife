@@ -41,10 +41,7 @@ const SignInScreen = ({ navigation }) => {
         const uid_b = registration(data.username, data.password).then((result) => {
             console.log(typeof (result));
             if (typeof (result) != "undefined") {
-                navigation.navigate('TaskListTab',
-                    {
-                        param: result,
-                    });
+                navigation.navigate('TaskListTab', { user_id: result },);
                 uid_signup.push(result);
 
             }

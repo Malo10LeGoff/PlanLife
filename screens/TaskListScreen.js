@@ -6,18 +6,13 @@ import { uid_signup } from './SignUpScreen';
 import { uid_signin } from './SignInScreen';
 
 
-const TaskListScreen = ({ route, props }) => {
+const TaskListScreen = ({ route }) => {
 
-    console.log(uid_signup);
-    console.log(uid_signin);
-    console.log(props.route.user_id);
+    console.log(route.params.user_id);
 
-    const uid = props.route.user_id;
+    const uid = route.params.user_id;
 
     console.log(uid);
-
-    console.log(props.navigation.state);
-
 
     const layout = useWindowDimensions();
 
@@ -31,19 +26,19 @@ const TaskListScreen = ({ route, props }) => {
 
     const FirstRoute = () => (
         <View style={styles.container}>
-            <Tab text={"Work"} uid={uid['0']} />
+            <Tab text={"Work"} uid={uid} />
         </View>
     );
 
     const SecondRoute = () => (
         <View style={styles.container}>
-            <Tab text={"Leisures"} uid={uid['0']} />
+            <Tab text={"Leisures"} uid={uid} />
         </View>
     );
 
     const ThirdRoute = () => (
         <View style={styles.container}>
-            <Tab text={"Health"} uid={uid['0']} />
+            <Tab text={"Health"} uid={uid} />
         </View>
     );
 
