@@ -37,7 +37,17 @@ You might want to go straight to the app to test how it runs !
 
 To have a better idea of the app, I put some screenshots down there :
 
-![](./assets/picture_1.png?raw=true)
 
-<img src="assets/picture_1.png"
-     alt="Markdown Monster icon"/>
+![](./assets/picture_1.jpg?raw=true)
+
+
+![](./assets/picture_2.jpg?raw=true)
+
+
+![](./assets/picture_3.jpg?raw=true)
+
+
+![](./assets/picture_4.jpg?raw=true)
+
+
+![](./assets/picture_5.jpg?raw=true)
